@@ -71,6 +71,34 @@ class ImageHandler():
         axes[1].set_title('Image FFT')
         plt.axis('off')
 
+    def get_scale_ratio(self, scale_ratio=None):
+        """
+        This function can receive a pixel to nm ratio as its argument, which\
+skips over defining the scalebar on the figure. If no ratio is provided,\
+prompt is initiated. This will open up the image_array, and prompt user with\
+instructions.
+        """
+        if scale_ratio is not None:
+            self.scale_ratio = scale_ratio
+        else:
+            length_nm = float(input("Enter scalebar length in nanometers."))
+            prompt = 'Define the scalebar position. Pick end points using left\
+mouse button. Right click once done. Middle mouse button removes most recent\
+point.'
+            fig, ax = plt.subplots()
+            plt.setp(plt.gca(), autoscale_on=True)
+            ax.imshow(self.image_array)
+            plt.title(prompt, wrap=True)
+            points = []
+            while len(points) < 2:
+                points = np.asarray(plt.ginput(n=2, show_clicks=True,
+                                    timeout=-1, mouse_add=1, mouse_stop=3,
+                                    mouse_pop=2))
+            length_pixel = np.abs(points[0][0]-points[1][0])
+            print("length_nm = ", length_nm)
+            print("length_pixel =", length_pixel)
+            self.scale_ratio = length_pixel/length_nm
+
     def get_planes(self):
         prompt = 'Pick planes using left mouse button. Right click once done.\
  Middle mouse button removes most recent point.'
@@ -78,7 +106,7 @@ class ImageHandler():
         print(prompt)
         fig, ax = plt.subplots()
         plt.setp(plt.gca(), autoscale_on=True)
-        ax.imshow(self.image_fft, cmap='binary_r')
+        ax.imshow(self.image_fft_array, cmap='binary_r')
         # zoom = False
         # while zoom is not True:
         while True:
