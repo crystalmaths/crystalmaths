@@ -1,4 +1,5 @@
 import skimage
+import functools
 import os
 import sys
 import numpy as np
@@ -6,8 +7,9 @@ import matplotlib.pyplot as plt
 from scipy.fftpack import fft2, fftshift, ifft
 from skimage import img_as_float
 from skimage.color import rgb2gray
+from scipy.signal import get_window
 from skimage import io
-import skimage
+from skimage import transform
 
 
 def setimage(google_shareable_link, output_filename, output_directory):
@@ -56,12 +58,27 @@ class ImageHandler():
     """
     Class which takes as input an image filepath, turns it into an array, and
     processes the FFT. Methods include get_planes, get_ratio.
+
+     If user chooses to apply window_type, window will be calculated based
+     on argument provided. New windowed_image_array attribute created.
+     The original array is still used for display purposes and identifying
+     scalebar. But the image_fft will be of the windowed image instead of
+     the original image.
     """
-    def __init__(self, image_filepath):
+    def __init__(self, image_filepath, window_type=None):
         self.image_filepath = image_filepath
         self.image_array = skimage.io.imread(self.image_filepath)
-        image_fft = np.abs(np.fft.fftshift((np.fft.fft2(self.image_array))))
-        self.image_fft_array = np.log(image_fft)
+
+        if window_type is not None:
+            window = self.apply_window(window_type)
+            self.windowed_image_array = self.image_array*window
+            image_fft = np.abs(np.fft.fftshift((np.fft.fft2(
+                self.windowed_image_array))))
+            self.image_fft_array = np.log(image_fft)
+        else:
+            image_fft = np.abs(np.fft.fftshift((np.fft.fft2(
+                self.image_array))))
+            self.image_fft_array = np.log(image_fft)
 
     def show_image(self):
         fig, axes = plt.subplots(1, 2, figsize=(16, 16))
@@ -136,3 +153,35 @@ point.'
                 self.point_coordinates = point_list
                 plt.close()
                 break
+
+    def apply_window(self, window_type):
+        """
+        Code taken from scikit-image window function. At time of writing\
+        this the window function is only available in scikit-image development\
+        build, and decision was made to not require that for this module.
+
+        This is an optional method which can be called at the time of class\
+        initialization in order to apply a specified window to the image array\
+        before performing FFT. The purpose is to reduce image edge and\
+        scalebar artifacts.
+        """
+        shape = self.image_array.shape
+        ndim = len(shape)
+        max_size = functools.reduce(max, shape)
+        w = get_window(window_type, max_size, fftbins=False)
+        w = np.reshape(w, (-1,)+(1,)*(ndim-1))
+
+        # Create coords for warping following `ndimage.map_coordinates`
+        # convention.
+        L = [np.arange(s, dtype=np.float32) * (max_size / s) for s in shape]
+
+        center = (max_size/2)-0.5
+        dist = 0
+        for g in np.meshgrid(*L, sparse=True, indexing='ij'):
+            g -= center
+            dist = dist + g*g
+            dist = np.sqrt(dist)
+            coords = np.zeros((ndim,)+dist.shape, dtype=np.float32)
+            coords[0] = dist + center
+
+        return transform.warp(w, coords, mode='constant')
