@@ -1,6 +1,15 @@
+#import the needed packages
+import numpy as np
+import pandas as pd
+from bs4 import BeautifulSoup
+from bs4.dammit import EncodingDetector
+import requests
+import re
+import csv
+
 #define the needed functions
 #take one input that's a list to be able to have a variable number of dspacings
-def make_web_address(dspacing1, dspacing2):
+def make_web_address(dspacing1, dspacing2, tolerance=0.001):
     '''
     make_web_address will compile a string to use for a webpage address
     
@@ -11,8 +20,8 @@ def make_web_address(dspacing1, dspacing2):
     
     Where 3.2435 and 2.4836 are two d spacings in the rutile structure
     '''
-    
-    web_address = 'http://rruff.geo.arizona.edu/AMS/result.php?diff=vals(' + str(dspacing1) + ',' + str(dspacing2) +'),opt(),type(d-spacing),tolerance(.001)'
+    tolerance = str(tolerance)
+    web_address = 'http://rruff.geo.arizona.edu/AMS/result.php?diff=vals(' + str(dspacing1) + ',' + str(dspacing2) +'),opt(),type(d-spacing),tolerance(' + tolerance + ')'
     
     return web_address
 
@@ -23,10 +32,13 @@ def find_diffraction_files(href):
     file web addresses from the American Mineral Society database
     
     find_diffraction_files works together with compile_links
+
+    todo:
+    need to add logic to check for possibility that the AMCS does not return the same amount of d-spacings as was provided by the search
     '''
 # commented out logic will return the text file links
-#     return href and re.compile("txt").search(href) and not re.compile("dif").search(href)        
-    return href and re.compile("dif").search(href)        
+    return href and re.compile("txt").search(href) and not re.compile("dif").search(href)        
+    # return href and re.compile("dif").search(href)        
 
 def compile_links(web_address):
     '''
@@ -44,7 +56,7 @@ def compile_links(web_address):
     http_encoding = html_page.encoding if 'charset' in html_page.headers.get('content-type', '').lower() else None
     html_encoding = EncodingDetector.find_declared_encoding(html_page.content, is_html=True)
     encoding = html_encoding or http_encoding
-    soup = BeautifulSoup(html_page.content, from_encoding=encoding)
+    soup = BeautifulSoup(html_page.content, from_encoding=encoding, features="html.parser")
     links_list = []
     for link in soup.find_all(href=find_diffraction_files):
         links_list.append('http://rruff.geo.arizona.edu'+link['href'])
@@ -165,15 +177,20 @@ def select_data(link, d_spacing_list):
     '''
     select_data compiles a new dataframe from the diffraction data
     containing only the rows with relevant data to our search 
+
+    todo:
+    can change atol to be a variable based on the original specified tolerance
     '''
     metadata_df, diffraction_df = lists_to_dfs(link)
     structure_df = pd.DataFrame()
+
     for entry in d_spacing_list:
         d_spacing_df = diffraction_df.loc[np.isclose(diffraction_df['D-SPACING'], entry, atol=.1)]
+        d_spacing_df.insert(0, 'D-REF', entry)
         structure_df = structure_df.append(d_spacing_df)
 #    crystalmaths_df = pd.concat([metadata_df, structure_df], axis=1, ignore_index=True)
+    
     return structure_df, metadata_df
-
 
 def get_d(links_list, d_spacing_list):
     crystalmaths_master_list = []

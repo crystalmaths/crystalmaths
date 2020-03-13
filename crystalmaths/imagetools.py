@@ -64,6 +64,9 @@ class ImageHandler():
      The original array is still used for display purposes and identifying
      scalebar. But the image_fft will be of the windowed image instead of
      the original image.
+
+     Todo:
+    - create shifted points attribute which shifts the origin of the fft
     """
     def __init__(self, image_filepath, window_type=None):
         self.image_filepath = image_filepath
@@ -84,7 +87,7 @@ class ImageHandler():
         fig, axes = plt.subplots(1, 2, figsize=(16, 16))
         axes[0].imshow(self.image_array, cmap='binary_r')
         axes[0].set_title('Loaded Image')
-        axes[1].imshow(self.image_fft, cmap='binary_r')
+        axes[1].imshow(self.image_fft_array, cmap='binary_r')
         axes[1].set_title('Image FFT')
         plt.axis('off')
 
