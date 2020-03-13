@@ -98,14 +98,14 @@ instructions.
         if scale_ratio is not None:
             self.scale_ratio = scale_ratio
         else:
-            length_nm = float(input("Enter scalebar length in nanometers."))
             prompt = 'Define the scalebar position. Pick end points using left\
 mouse button. Right click once done. Middle mouse button removes most recent\
 point.'
             fig, ax = plt.subplots()
             plt.setp(plt.gca(), autoscale_on=True)
-            ax.imshow(self.image_array)
+            ax.imshow(self.image_array, cmap='binary_r')
             plt.title(prompt, wrap=True)
+            length_nm = float(input("Enter scalebar length in nanometers."))
             points = []
             while len(points) < 2:
                 points = np.asarray(plt.ginput(n=2, show_clicks=True,
@@ -127,7 +127,8 @@ point.'
         # zoom = False
         # while zoom is not True:
         while True:
-            plt.title('Perform zoom if necessary, keyboard press to advance')
+            plt.title('Perform zoom if necessary, press down arrow key to\
+                      continue with plane selection')
             if plt.waitforbuttonpress(timeout=-1):
                 # zoom = True
                 break
