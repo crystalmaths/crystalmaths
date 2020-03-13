@@ -13,13 +13,14 @@ def test_lengthproduct():
     point1 = [1, 2, 3]
     point2 = [4, 5, 6]
     result2 = angles_from_fft.lengthproduct(point1, point2)
-    assert type(result2) == float, "The calculated lengthproduct is in wrong type"
+    assert type(result2) == float, "The calculated lengthproduct \
+    is in wrong type"
     assert result2 != 0, "At least one of the input point is not acceptable"
 
 
 def test_angle():
     point1 = [1, 2, 3]
     point2 = [4, 5, 6]
-    result3 = angles_from_fft.angle (point1, point2)
-    assert result3 < 361, "Calculated angle is greater than 360, which is wrong"
-
+    result3 = angles_from_fft.angle(point1, point2)
+    assert result3 < 361, "Calculated angle is greater than 360,\
+    which is wrong"
