@@ -82,7 +82,7 @@ class ImageHandler():
             image_fft = np.abs(np.fft.fftshift((np.fft.fft2(
                 self.image_array))))
             self.image_fft_array = np.log(image_fft)
-
+ 
     def show_image(self):
         fig, axes = plt.subplots(1, 2, figsize=(16, 16))
         axes[0].imshow(self.image_array, cmap='binary_r')
