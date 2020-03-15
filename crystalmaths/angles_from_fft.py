@@ -1,5 +1,5 @@
 import math
-
+import numpy as np
 
 def dotproduct(point1, point2):
     """This is the function used to calculate the dot \
@@ -10,6 +10,8 @@ def dotproduct(point1, point2):
         result = result + point1[i]*point2[i]
     return result
 
+def crossproduct(vector1, vector2):
+    return np.crossproduct()
 
 def lengthproduct(point1, point2):
     """This is the function used to calculate the length \

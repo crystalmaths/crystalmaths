@@ -165,7 +165,7 @@ def lists_to_dfs(link):
     i = 0
     for entry in cell_params_labels:
         label = cell_params_labels[i]
-        entry = cell_params_list[i]
+        entry = float(cell_params_list[i])
         metadata_dict.update({label:[entry]})
         i = i + 1
     metadata_df = pd.DataFrame(metadata_dict)
