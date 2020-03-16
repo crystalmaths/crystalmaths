@@ -9,7 +9,7 @@ import csv
 
 #define the needed functions
 #take one input that's a list to be able to have a variable number of dspacings
-def make_web_address(dspacing1, dspacing2, tolerance=0.001):
+def make_web_address(dspacing1, dspacing2, tolerance=0.001, mineral=None):
     '''
     make_web_address will compile a string to use for a webpage address
     
@@ -21,7 +21,11 @@ def make_web_address(dspacing1, dspacing2, tolerance=0.001):
     Where 3.2435 and 2.4836 are two d spacings in the rutile structure
     '''
     tolerance = str(tolerance)
-    web_address = 'http://rruff.geo.arizona.edu/AMS/result.php?diff=vals(' + str(dspacing1) + ',' + str(dspacing2) +'),opt(),type(d-spacing),tolerance(' + tolerance + ')'
+    if mineral is not None:
+        web_address = 'http://rruff.geo.arizona.edu/AMS/result.php?diff=vals(' + str(dspacing1) + ',' + str(dspacing2) +'),opt(),type(d-spacing),tolerance(' + tolerance + ')&mineral='+mineral
+    
+    else:
+        web_address = 'http://rruff.geo.arizona.edu/AMS/result.php?diff=vals(' + str(dspacing1) + ',' + str(dspacing2) +'),opt(),type(d-spacing),tolerance(' + tolerance + ')'
     
     return web_address
 
