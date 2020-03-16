@@ -4,13 +4,12 @@ import pandas as pd
 
 def find_matching_angles(angle_fft, result_df, tolerance):
     """
-    Todo:Update function description
-
-    This function finds matching angle pairs between a list of angles obtained
+    This function finds matching angle pairs between an angle obtained
     from FFT (usung "angles_from_fft" function) and a list of angles found
     in structure data base (using "angles_from_structure_data" function).
-    Inputs are (1) list of angles from FFT, (2) list of angles from data base,
-    (3) value of tolerance to use.
+    Inputs are (1) a value of angle from FFT, (2) Pandas DataFrame that
+    has angles from structure data (obtained using AllAnglePairs class),
+    (3) a value of tolerance to use.
     Output is a list of matching angle pairs.
     """
     dummy_array = np.ones(result_df.shape[0])
