@@ -1,4 +1,7 @@
 *.tiff
+*.jpg
+*.jpeg
+*.png
 *.bmp
 *.pdf
 *.ipynb_checkpoints
