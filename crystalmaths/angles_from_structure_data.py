@@ -92,7 +92,8 @@ def angle_for_pair (plane1, plane2, metadata_df):
             numerator_array[i] = numerator_array[i]+plane1[j]*temp[j][i]
     for i in range(3):
         numerator = numerator+numerator_array[i]*plane2[i]
-    demoninator = math.sqrt(d1_value*d2_value)
-    rad = math.acos(numerator/demoninator)
+    denominator = math.sqrt(d1_value*d2_value)
+    print(numerator, denominator)
+    rad = math.acos(numerator/denominator)
     degree = 180*rad/math.pi
     return degree
