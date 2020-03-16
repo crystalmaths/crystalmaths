@@ -64,11 +64,13 @@ class ImageHandler():
      The original array is still used for display purposes and identifying
      scalebar. But the image_fft will be of the windowed image instead of
      the original image.
-    """
-    def __init__(self, image_filepath, window_type=None):
-        self.image_filepath = image_filepath
-        self.image_array = skimage.io.imread(self.image_filepath)
 
+     Todo:
+    - create shifted points attribute which shifts the origin of the fft
+    """
+    def __init__(self, image_filepath, window_type=None, scale_ratio=None):
+        self.image_filepath = image_filepath
+        self.image_array = skimage.io.imread(self.image_filepath, as_gray=True)
         if window_type is not None:
             window = self.apply_window(window_type)
             self.windowed_image_array = self.image_array*window
@@ -84,7 +86,7 @@ class ImageHandler():
         fig, axes = plt.subplots(1, 2, figsize=(16, 16))
         axes[0].imshow(self.image_array, cmap='binary_r')
         axes[0].set_title('Loaded Image')
-        axes[1].imshow(self.image_fft, cmap='binary_r')
+        axes[1].imshow(self.image_fft_array, cmap='binary_r')
         axes[1].set_title('Image FFT')
         plt.axis('off')
 
@@ -138,7 +140,7 @@ point.'
             fig.canvas.draw()
             while True:
                 print("Entered point pick loop")
-                points = plt.ginput(n=-1, show_clicks=True, timeout=-1,
+                points = plt.ginput(n=2, show_clicks=True, timeout=-1,
                                     mouse_add=1, mouse_stop=3, mouse_pop=2)
                 break
             plt.title(message, wrap=True)
@@ -151,7 +153,15 @@ point.'
                     point_col = int(points[i][0])
                     point_row = int(points[i][1])
                     point_list.append([point_col, point_row])
-                self.point_coordinates = point_list
+                raw_point_coordinates = point_list 
+                #The center of the image is shifted to index 0,0, to ease
+                #calculation of angles between points downstream.
+                p1, p2 = raw_point_coordinates
+                p1[0] = p1[0] - self.image_array.shape[0]/2
+                p1[1] = p1[1] - self.image_array.shape[1]/2
+                p2[0] = p2[0] - self.image_array.shape[0]/2
+                p2[1] = p2[1] - self.image_array.shape[1]/2
+                self.point_coordinates = [p1, p2]
                 plt.close()
                 break
 
