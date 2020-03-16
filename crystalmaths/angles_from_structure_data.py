@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import itertools
 
+
 class AllAnglePairs():
     def __init__(self, data_df, metadata_df):
         self.data_df = data_df
@@ -12,10 +13,9 @@ class AllAnglePairs():
         # List of d-spacing pairs used to avoid duplicate plane comparisons
         self.pair_list = []
         self.angle_for_all()
-        
 
     def angle_for_all(self):
-        for i,rowi in self.data_df.iterrows():
+        for i, rowi in self.data_df.iterrows():
             self.rowi_vs_all(rowi)
 
     def rowi_vs_all(self, rowi):
@@ -31,24 +31,30 @@ class AllAnglePairs():
         planej = [rowj['H'], rowj['K'], rowj['L']]
         angle = angle_for_pair(planei, planej, self.metadata_df)
         
-        data_dict = {'D-REF1':[rowi['D-REF']], 'D-REF2':[rowj['D-REF']], 'D-SPACING1':[rowi['D-SPACING']],
-                    'D-SPACING2':[rowj['D-SPACING']], 'H1':[rowi['H']], 'K1':[rowi['K']], 'L1':[rowi['L']],
-                     'H2':[rowj['H']], 'K2':[rowj['K']], 'L2':[rowj['L']],'angle':[angle]}
+        data_dict = {'D-REF1':[rowi['D-REF']], 'D-REF2':[rowj['D-REF']], 
+                    'D-SPACING1':[rowi['D-SPACING']],
+                    'D-SPACING2':[rowj['D-SPACING']], 'H1':[rowi['H']],
+                    'K1':[rowi['K']], 'L1':[rowi['L']], 'H2':[rowj['H']],
+                    'K2':[rowj['K']], 'L2':[rowj['L']],'angle':[angle]}
         temp_df=pd.DataFrame(data=data_dict)
-        pair_id = set([temp_df['D-SPACING1'].values[0], temp_df['D-SPACING2'].values[0]])
+        pair_id = set([temp_df['D-SPACING1'].values[0],
+                       temp_df['D-SPACING2'].values[0]])
         if self.result_df.shape[0] == 0:
             self.result_df = self.result_df.append(temp_df, ignore_index=True)
             self.pair_list.append(pair_id)
         elif  pair_id not in self.pair_list:
             self.result_df = self.result_df.append(temp_df, ignore_index=True)
             self.pair_list.append(pair_id)
+
                                          
 
 def angle_for_pair (plane1, plane2, metadata_df):
-    """This is the function used to calculate the angle between two planes in miller indices, 
+    """
+    This is the function used to calculate the angle between two planes in miller indices, 
     by calculating arccosine of dot product divide by length product plane1 in format of [h1, k1, l1], 
     plane2 in format of [h2, k2, l2]. lattice_parameter should be written in format of [a, b, c] and alpha, 
-    beta, gamma are in degree"""
+    beta, gamma are in degree
+    """
 
     alpha = metadata_df['alpha']*math.pi/180
     beta = metadata_df['beta']*math.pi/180
@@ -90,4 +96,3 @@ def angle_for_pair (plane1, plane2, metadata_df):
     rad = math.acos(numerator/demoninator)
     degree = 180*rad/math.pi
     return degree
-
