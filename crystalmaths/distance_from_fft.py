@@ -11,5 +11,5 @@ def distance_from_fft(point, ratio, image_shape):
     pixel_length = math.sqrt(sum(cord_list))
 
     factor = ratio/image_shape
-    inverse_length = 1/(factor*pixel_length)*10 # units 1/angstrom
+    inverse_length = 1/(factor*pixel_length)*10  # units 1/angstrom
     return inverse_length
