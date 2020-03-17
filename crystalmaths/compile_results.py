@@ -39,7 +39,7 @@ def compile_results(image_object, d_spacing_tolerance, angle_tolerance,
         result_df = crystalmaths.find_matching_angles.find_matching_angles(
             fft_angle, result_df, angle_tolerance)
         if final_df.empty:
-            pass
+            print("No results identified from search.")
         else:
             final_df = result_df[result_df['angle match'] is True]
             mineral_name = metadata_df['Mineral_Name'].values
