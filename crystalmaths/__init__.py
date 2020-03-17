@@ -7,5 +7,4 @@ from . import distance_from_fft
 from . import find_matching_angles
 from . import get_d
 from . import trans_mode
-from . import temp_angles_from_structure_data_Edwin
 from . import compile_results
