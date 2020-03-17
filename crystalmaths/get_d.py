@@ -56,7 +56,7 @@ def find_diffraction_files(href):
 
 def flag_permuation_attempt(href):
     '''
-    This is a function to identify that the search did not yield results, 
+    This is a function to identify that the search did not yield results,
     but the website tried to proceed with a permutation search.
     I.e. with just one of the d-spacings.
     '''
@@ -209,6 +209,13 @@ def lists_to_dfs(link):
     metadata_df = pd.DataFrame(metadata_dict)
     diffraction_df = pd.DataFrame(clean_data_list, columns=data_labels[0])
     diffraction_df = diffraction_df[['D-SPACING', 'H', 'K', 'L']]
+
+    diffraction_df['H'] = diffraction_df.apply(
+        lambda row: int(row['H']), axis=1)
+    diffraction_df['K'] = diffraction_df.apply(
+        lambda row: int(row['K']), axis=1)
+    diffraction_df['L'] = diffraction_df.apply(
+        lambda row: int(row['L']), axis=1)
     return metadata_df, diffraction_df
 
 

@@ -23,7 +23,12 @@ def find_matching_angles(angle_fft, result_df, tolerance):
             check_list.append(True)
             plane1 = np.array([row['H1'], row['K1'], row['L1']])
             plane2 = np.array([row['H2'], row['K2'], row['L2']])
-            cross_product_list.append(np.cross(plane1, plane2))
+            cross_product = np.cross(plane1, plane2)
+            cross_product = [int(i) for i in cross_product]
+            cross_gcd = np.gcd.reduce(cross_product)
+            cross_product = cross_product/cross_gcd
+            cross_product_list.append(cross_product)
+
         else:
             check_list.append(False)
             cross_product_list.append(None)
