@@ -1,8 +1,7 @@
 **Use Case 1**: <font color=blue>Over_worked_grad_student</font> is a graduate student studying some crystals using HRTEM. They have gorgeous images and now they need to index them for publication to prove that they are making what they think they are making.  
 
 * <font color=blue>Over_worked_grad_student</font> will use this software to specify a path to their HRTEM image or images.
-* <font color=blue>Over_worked_grad_student</font> will use this software to specify a path to their HRTEM image or images.
-=blue>Over_worked_grad_student</font> will use this software to generate an FFT of their image.
+* <font color=blue>Over_worked_grad_student</font> will use this software to generate an FFT of their image.
 * <font color=blue>Over_worked_grad_student</font> will use the user interface to select planes and set the scale of their image.
 * <font color=blue>Over_worked_grad_student</font> will use this software to calculate the angles between planes in their FFT.
 * <font color=blue>Over_worked_grad_student</font> will use this software to calculate the d spacing of each plane in their FFT.
