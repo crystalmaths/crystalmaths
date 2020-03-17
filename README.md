@@ -1,5 +1,5 @@
 
-![crystalmaths](https://https://github.com/crystalmaths/crystalmaths/tree/master/images/crystalmaths.png)
+![crystalmaths](https://github.com/crystalmaths/crystalmaths/blob/master/images/crystalmaths.png?raw=true)
 
 ### Package for indexing the zone axis of a high res TEM image
 
