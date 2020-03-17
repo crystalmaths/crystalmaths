@@ -1,27 +1,15 @@
-Identify zone axis from a TEM image
 
-##Flow of implementation:
+![crystalmaths](https://crystalmaths.github.com/images/crystalmaths.png)
 
-crystalmaths.setimage User provides a high res transmission electron microscope (HRTEM) image.
+### Package for indexing the zone axis of a high res TEM image
 
-crystalmaths.setscale sets the scale of the image in pixels to nm - we get this either from the HRTEM image metadata, or from the user directly as an input.
+#### Software Dependancies
 
-crystalmaths.setstructure sets the symmetry of the crystal, ie cubic - either we can employ a recent package to get this information from the FFT or we can get this from the user as an input.
+- Python 3
+- Please see the file environment.yml for the needed packages
 
-crystalmaths.fft applies a fast fourier transform (FFT) to the image and stores this image separately.
+#### Preview of CrystalMaths
+[![Crystalmaths Demo](https://res.cloudinary.com/marcomontalbano/image/upload/v1584430647/video_to_markdown/images/youtube--sT46nRLCLZ8-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://www.youtube.com/watch?v=sT46nRLCLZ8 "Crystalmaths Demo")
 
-crystalmaths.plane trained model identifies the atomic planes, or dots in the FFT, and stores them as objects. Requires machine learning - torch package
 
-crystalmaths.df creates an empty crystalmaths DataFrame
-
-crystalmaths.fftdist measures the distance between planes of atoms in each direction (d spacing) from the FFT and adds these distances into the dataframe.
-
-crystalmaths.fftang measures the angles between each plane based on the FFT adds this information to the crystalmaths DataFrame
-
-crystalmaths.calcang calculates the angles between different planes based on the d spacing from crystalmaths.fftdist and the crystal structure provided by crystalmaths.setstructure and adds this information to the crystalmaths DataFrame
-
-crystalmaths.checkcrystal uses the math.isclose (or equivalent) function and checks to see if the experimental and expected angles are close or throws and error because this is not the correct crystal structure. IE the user input cubic and the angles between planes do not match because they have a hexagonal crystal. 
-
-crystalmaths.getd queries an external structural database to find planes with similar d spacing and crystal structure, and loads near mathes into a structure DataFrame
-
-crystalmaths.zone calculates the zone axis for the top 5 predictions by confidence by taking the cross product of two planes and plots each as a potential zone axis for the user to select
+Please see the Module Demo notebook in the examples folder
