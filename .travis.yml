@@ -2,12 +2,7 @@
 language: python
 
 # specify what versions of python will be used
-# note that all of the versions listed will be tried
-matrix:
-    include:
-        - python: 3.5
-        - python: 3.6
-        - python: 3.7
+python: 3.7
 
 # what branches should be evaluated
 branches:
@@ -28,6 +23,9 @@ install:
     - conda env create -q -n test-environment python=$TRAVIS_PYTHON_VERSION --file environment.yml
     - source activate test-environment
     - conda install --yes coverage coveralls flake8
+    - pip install pip install pandas
+    - pip install numpy
+    - pip install maths
 
 # a list of commands to run before the main script
 before_script:
@@ -35,9 +33,15 @@ before_script:
 
 # the actual commands to run
 script:
-    - coverage run -m unittest discover
+    - coverage run test_angles_from_fft.py
+    - coverage run test_angles_from_structure_data.py
+    - coverage run test_distance_from_fft.py
+    - coverage run test_find_matching_angles.py
+    - coverage run test_imagetools.py
+    - coverage run test_trans_mode.py
 
 # generate a coverage report to send to back to user
 after_success:
     - coverage report
     - coveralls
+
