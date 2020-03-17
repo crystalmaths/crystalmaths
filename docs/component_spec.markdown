@@ -1,16 +1,16 @@
 
 ### 1. Human machine interface: the human machine interface is used to specify the scale bar and the points on an FFT of thier image which represent planes
 
-**Inputs**: Scale Bar size in nanometers as an integer input, .bmp or .png image of high res TEM, positions of clicks while in the interface which are used to set the scale ratio in the image and the position of planes in the FFT.
-**Outputs**: scale ratio as a float and position of planes as a list of point coordinates.
+* **Inputs**: Scale Bar size in nanometers as an integer input, .bmp or .png image of high res TEM, positions of clicks while in the interface which are used to set the scale ratio in the image and the position of planes in the FFT.
+* **Outputs**: scale ratio as a float and position of planes as a list of point coordinates.
 
 The human machine interface creates an object of the class image and stores data for other functions to retrieve. Human machine interface software is located in imagetools.py.
 
 
 ### 2. Crystalmaths package: the crystalmaths package uses the data from the human machine interface to search the American Minerals Society database for potential crystal structures and returns zone axis for structures with planes that have matching d spacing and angles between these planes. Components are listed below.
 
-**Inputs**: scale ratio as a float from the human machine interface, postions of planes in FFT as integers in a list of x y coordinates.
-**Output**: A dataframe of potential planes and zone axis.
+* **Inputs**: scale ratio as a float from the human machine interface, postions of planes in FFT as integers in a list of x y coordinates.
+* **Output**: A dataframe of potential planes and zone axis.
 
 The crystalmaths package calculates the zone axis of a high res TEM image in crystalmaths.compile_results.
 
