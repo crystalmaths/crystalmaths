@@ -1,5 +1,8 @@
-def create_summary_df(image_object, d_spacing_tolerance, angle_tolerance,
-                      mineral=None):
+import crystalmaths
+
+
+def compile_results(image_object, d_spacing_tolerance, angle_tolerance,
+                    mineral=None):
     """
     get_zone_axis will take one image_object which has had two planes
     selected on it. The two points (e.g. d1, d2) will be passed as
@@ -33,8 +36,9 @@ def create_summary_df(image_object, d_spacing_tolerance, angle_tolerance,
         temp_object = crystalmaths.angles_from_structure_data.AllAnglePairs(
             data_df, metadata_df)
         result_df = temp_object.result_df
-        result_df = find_matching_angles(fft_angle, result_df, angle_tolerance)
-        final_df = result_df[result_df['angle match'] == True]
+        result_df = crystalmaths.find_matching_angles.find_matching_angles(
+            fft_angle, result_df, angle_tolerance)
+        final_df = result_df[result_df['angle match'] is True]
         if final_df.empty:
             pass
         else:
