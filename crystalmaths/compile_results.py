@@ -39,14 +39,13 @@ def compile_results(image_object, d_spacing_tolerance, angle_tolerance,
         result_df = crystalmaths.find_matching_angles.find_matching_angles(
             fft_angle, result_df, angle_tolerance)
 
-        try:
+        if result_df.empty() or (True not in result_df['angle match']):
+            pass
+        else:
             final_df = result_df[result_df['angle match'] is True]
-        except Exception:
-            print("No results identified from search.")
-            break
-        mineral_name = metadata_df['Mineral_Name'].values
-        n = final_df.shape[0]
-        mineral_name_list = [mineral_name for i in range(n)]
-        final_df.insert(0, 'Mineral_Name', mineral_name_list)
-        angle_compare_list.append((final_df, metadata_df))
+            mineral_name = metadata_df['Mineral_Name'].values
+            n = final_df.shape[0]
+            mineral_name_list = [mineral_name for i in range(n)]
+            final_df.insert(0, 'Mineral_Name', mineral_name_list)
+            angle_compare_list.append((final_df, metadata_df))
     return angle_compare_list
