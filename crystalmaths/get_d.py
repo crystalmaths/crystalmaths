@@ -51,8 +51,18 @@ def find_diffraction_files(href):
 
     # commented out logic will return the text file links
     return href and re.compile("txt").search(href) and not\
-        re.compile("dif").search(href)
+        re.compile("dif").search(href) 
     # return href and re.compile("dif").search(href)
+
+def flag_permuation_attempt(href):
+    '''
+    This is a function to identify that the search did not yield results, 
+    but the website tried to proceed with a permutation search.
+    I.e. with just one of the d-spacings.
+    '''
+
+    return href and\
+        re.compile("Now trying variations on your request:").search(body)
 
 
 def compile_links(web_address):
@@ -77,6 +87,11 @@ def compile_links(web_address):
     soup = BeautifulSoup(html_page.content, from_encoding=encoding,
                          features="html.parser")
     links_list = []
+
+    permutation_attempt = soup(text=re.compile("Now trying variations on your request:"))
+    if len(permutation_attempt) is not 0:
+        return links_list
+
     for link in soup.find_all(href=find_diffraction_files):
         links_list.append('http://rruff.geo.arizona.edu'+link['href'])
 
