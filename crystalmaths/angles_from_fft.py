@@ -1,5 +1,4 @@
 import math
-import numpy as np
 
 
 def dotproduct(point1, point2):
