@@ -7,7 +7,7 @@ The goal of `crystalmaths` team is to create a Python module that can make a pro
 `crystalmaths` is still a developing module and more improvements yet to come. Feel free to add your comments, notes, and recommendations in the `issues` of this repository.
 
 #### Installation:
-- `conda install crystalmaths'
+- `conda install crystalmaths`
 
 #### Software Dependencies:
 - `Python 3.7`
@@ -22,4 +22,4 @@ Please see the [Module Demo jupyter notebook](https://github.com/crystalmaths/cr
 #### Acknowledgments:
 Thanks to Ting, Dave, Ted, Jimin, Torin, and Caitlyn for being fantastic instructors and mentors for us.
 
-![DIRECT logo](https://github.com/crystalmaths/crystalmaths/blob/master/images/DIRECTlogo-Final.png?raw=true)
+<img src="https://github.com/crystalmaths/crystalmaths/blob/master/images/DIRECTlogo-Final.png?raw=true" width="300">
