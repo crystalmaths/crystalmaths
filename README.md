@@ -14,11 +14,11 @@ The goal of `crystalmaths` team is to create a Python module that can make a pro
 - Please see the file `environment.yml` for the needed packages.
 
 #### Preview of CrystalMaths:
-Please review this short video with the demo of how to use `crystalmaths` functions:
-[![Crystalmaths Demo](https://res.cloudinary.com/marcomontalbano/image/upload/v1584430647/video_to_markdown/images/youtube--sT46nRLCLZ8-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://www.youtube.com/watch?v=sT46nRLCLZ8 "Crystalmaths Demo")
+Please review this short demo of how to use `crystalmaths` functions:
 
-This is a gif instead of a video link:
 ![Preview](https://github.com/crystalmaths/crystalmaths/blob/master/images/Crystalmaths-Demo-_1080p_.gif?raw=true)
+
+Also available from [here](https://www.youtube.com/watch?v=sT46nRLCLZ8):
 
 Please see the [Module Demo jupyter notebook](https://github.com/crystalmaths/crystalmaths/blob/master/examples/Module%20Demo.ipynb) in the examples folder for more details.
 
