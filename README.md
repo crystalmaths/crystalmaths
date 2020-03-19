@@ -18,11 +18,13 @@ Please review this short demo of how to use `crystalmaths` functions:
 
 ![Preview](https://github.com/crystalmaths/crystalmaths/blob/master/images/Crystalmaths-Demo-_1080p_.gif?raw=true)
 
-Also available from [here](https://www.youtube.com/watch?v=sT46nRLCLZ8):
+Also available from [here](https://www.youtube.com/watch?v=sT46nRLCLZ8).
 
 Please see the [Module Demo jupyter notebook](https://github.com/crystalmaths/crystalmaths/blob/master/examples/Module%20Demo.ipynb) in the examples folder for more details.
 
 #### Acknowledgments:
 Thanks to Ting, Dave, Ted, Jimin, Torin, and Caitlyn for being fantastic instructors and mentors for us.
 
-<img src="https://github.com/crystalmaths/crystalmaths/blob/master/images/DIRECTlogo-Final.png?raw=true" width="300">
+<img align="center" img src="https://github.com/crystalmaths/crystalmaths/blob/master/images/DIRECTlogo-Final.png?raw=true" width="300"> <img align="center" img src="https://github.com/crystalmaths/crystalmaths/blob/master/images/Signature_Center_Purple_RGB.png?raw=true" width="300">
+
+
