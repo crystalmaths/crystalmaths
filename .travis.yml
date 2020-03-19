@@ -19,7 +19,7 @@ before_install:
     - source $(conda info --root)/etc/profile.d/conda.sh
         
 install:
-    - CONDA_RESTORE_FREE_CHANNEL=1 conda env create -q -n test-environment python=$TRAVIS_PYTHON_VERSION --file environment.yml
+    - conda env create -q -n test-environment python=$TRAVIS_PYTHON_VERSION --file environment.yml
     - conda activate test-environment
     - conda install --yes coverage coveralls flake8
     - pip install pip install pandas
