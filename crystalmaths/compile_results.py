@@ -53,3 +53,22 @@ def compile_results(image_object, d_spacing_tolerance, angle_tolerance,
     if len(angle_compare_list) is 0:
         print("Search criteria yield no results.")
     return angle_compare_list
+
+
+def merge_results(result_list):
+    for i, result in enumerate(result_list):
+        if i == 0:
+            summary_df = result[0].copy(deep=True)
+            summary_df.reset_index()
+        else:
+            summary_df = summary_df.append(result[0], ignore_index=True)
+    summary_df.drop(columns='angle match', inplace=True)
+    summary_df['D1-RESIDUAL'] = summary_df.apply(
+        lambda row: (row['D-REF1']-row['D-SPACING1'])**2, axis=1)
+    summary_df['D2-RESIDUAL'] = summary_df.apply(
+        lambda row: (row['D-REF2']-row['D-SPACING2'])**2, axis=1)
+    summary_df['ANGLE-RESIDUAL'] = summary_df.apply(
+        lambda row: (row['angle']-row['angle-fft'])**2, axis=1)
+    summary_df.sort_values(by='ANGLE-RESIDUAL', inplace=True)
+    summary_df.columns = [x.upper() for x in summary_df.columns]
+    return summary_df
