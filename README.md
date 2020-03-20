@@ -8,7 +8,7 @@ The goal of `crystalmaths` is to create a Python module that can make automate z
 `crystalmaths` is a developing module with more improvements to come. Feel free to add your comments, notes, and recommendations in the `issues` of this repository.
 
 #### Installation:
-- `conda install crystalmaths`
+- `pip install crystalmaths`
 
 #### Software Dependencies:
 - `Python 3.7`
