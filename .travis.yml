@@ -23,8 +23,8 @@ install:
     - conda activate test-environment
     - conda install --yes coverage coveralls flake8
 
-#before_script:
-#    - pycodestyle crystalmaths
+before_script:
+    - pycodestyle crystalmaths
 
 script:
     - coverage run -m unittest discover
