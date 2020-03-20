@@ -3,8 +3,10 @@
 # import oauth2client
 from oauth2client import file, client, tools
 
+
 def obj():
     return None
+
 
 def google_authorization():
     """
