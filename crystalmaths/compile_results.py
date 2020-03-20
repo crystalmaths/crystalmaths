@@ -42,7 +42,7 @@ def compile_results(image_object, d_spacing_tolerance, angle_tolerance,
         if result_df.empty:
             pass
         elif result_df['angle match'].any():
-            final_df = result_df[result_df['angle match'] == True]
+            final_df = result_df[result_df['angle match']]
             mineral_name = metadata_df['Mineral_Name'].values
             n = final_df.shape[0]
             mineral_name_list = [mineral_name for i in range(n)]
