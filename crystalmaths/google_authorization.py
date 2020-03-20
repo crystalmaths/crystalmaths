@@ -3,6 +3,8 @@
 # import oauth2client
 from oauth2client import file, client, tools
 
+def obj():
+    return None
 
 def google_authorization():
     """
@@ -14,7 +16,7 @@ def google_authorization():
     Once done, you are ready to access files in Google Drive.
     """
 
-    obj = lambda: None
+    # obj = lambda: None
     lmao = {"auth_host_name": 'localhost', 'noauth_local_webserver':
             'store_true', 'auth_host_port': [8080, 8090], 'logging_level':
             'ERROR'}
