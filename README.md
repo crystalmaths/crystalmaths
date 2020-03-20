@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/crystalmaths/crystalmaths.svg?branch=master)](https://travis-ci.org/github/crystalmaths/crystalmaths)
 
 ![crystalmaths](https://github.com/crystalmaths/crystalmaths/blob/master/images/crystalmathsdark.png?raw=true)
 
