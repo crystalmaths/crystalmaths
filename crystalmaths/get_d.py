@@ -51,8 +51,9 @@ def find_diffraction_files(href):
 
     # commented out logic will return the text file links
     return href and re.compile("txt").search(href) and not\
-        re.compile("dif").search(href) 
+        re.compile("dif").search(href)
     # return href and re.compile("dif").search(href)
+
 
 def flag_permuation_attempt(href):
     '''
@@ -88,7 +89,8 @@ def compile_links(web_address):
                          features="html.parser")
     links_list = []
 
-    permutation_attempt = soup(text=re.compile("Now trying variations on your request:"))
+    permutation_attempt = soup(text=re.compile("Now trying variations on your\
+ request:"))
     if len(permutation_attempt) is not 0:
         return links_list
 
